@@ -7,9 +7,10 @@ export default class Item extends Component {
         console.log(`checked = ${e.target.checked}`);
     }
     render() {
+        const {todo,done} = this.props
         return (
             <div className="item-container">
-                <Checkbox onChange={this.onChange}>Checkbox</Checkbox>
+                <Checkbox defaultChecked={done} onChange={this.onChange} >{todo}</Checkbox>
             </div>
         )
     }
