@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Input } from 'antd';
 import { Button } from 'antd';
 import './index.css'
 
 export default class Header extends Component {
+    static propTypes = {
+        addTodo: PropTypes.func.isRequired
+    }
     state = {
         value: ""
     }
-
     onPress = () => {
         // event.persist()
         const { value } = this.state
