@@ -1,0 +1,17 @@
+.Item{
+    width: 90px;
+    margin: 10px;
+    padding-top: 10px;
+    text-align: center;
+}
+.Item:hover{
+    background-color: #ccc;
+}
+.Item-a{
+    display: block;
+    text-align: center;
+}
+.user-img{
+    width: 80px;
+    height: 80px;
+}
