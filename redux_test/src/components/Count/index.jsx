@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import store from '../../redux/store' //引入store，用于获取redux中保存的状态
-import { createIncrementAction, createDecrementAction } from '../../redux/store' //引入actionCreator，专门用于创建action对象
+import { createIncrementAction, createDecrementAction } from '../../redux/count_action' //引入actionCreator，专门用于创建action对象
 
 export default class Count extends Component {
 
