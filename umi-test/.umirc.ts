@@ -9,4 +9,11 @@ export default defineConfig({
     { path: '/users', component: '@/pages/users' },
   ],
   fastRefresh: {},
+  proxy: {
+    '/api': {
+      'target': 'http://public-api-v1.aspirantzhang.com/',
+      'changeOrigin': true,
+      'pathRewrite': { '^/api': '' },
+    },
+  },
 });
