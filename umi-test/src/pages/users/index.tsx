@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Table, Popconfirm, Button } from 'antd';
 import { connect } from "umi";
 import UserModal from './components/UserModal';
 import './index.less'
 
-const index = ({ users }: any) => {
+const index = ({ users, dispatch, loading }: any) => {
+    console.log(loading);
+    const usersLoading = loading.models.users
     const [modalVisible, setModalVisible] = useState(false);
-    const [record, setRecord] = useState({name: '123'});
+    const [record, setRecord] = useState({ name: '', id: undefined });
 
     const columns = [
         {
@@ -30,7 +32,14 @@ const index = ({ users }: any) => {
             render: (text: string, record: { name: string }) => (
                 <span>
                     <a onClick={() => { editHandler(record) }}>Edit</a>&nbsp;&nbsp;
-                    <a>Delete</a>
+                    <Popconfirm
+                        title="确定删除该项数据吗？"
+                        onConfirm={() => { confirmDelete(record.id) }}
+                        okText="确定"
+                        cancelText="取消"
+                    >
+                        <a>Delete</a>
+                    </Popconfirm>
                 </span>
             ),
         },
@@ -43,12 +52,49 @@ const index = ({ users }: any) => {
         setModalVisible(false)
     }
     const onFinish = (res) => {
-        console.log(res);
-        
+        let id: number | undefined
+        id = record ? record.id : undefined
+        if (id !== undefined) {
+            console.log('edit');
+            dispatch({
+                // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
+                // 必须给type加上命名空间users用来指定所用的model
+                type: 'users/edit',
+                payload: {
+                    id,
+                    record: res
+                }
+            })
+        } else {
+            console.log('add');
+            dispatch({
+                // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
+                // 必须给type加上命名空间users用来指定所用的model
+                type: 'users/add',
+                payload: {
+                    record: res
+                }
+            })
+        }
+
+        setModalVisible(false);
+    }
+    const confirmDelete = (id: number) => {
+        dispatch({
+            type: 'users/delete',
+            payload: {
+                id
+            }
+        })
+    }
+    const addHandler = () => {
+        setRecord(undefined);
+        setModalVisible(true);
     }
     return (
         <div className="users-container">
-            <Table columns={columns} dataSource={users.data} rowKey="id" />
+            <Button type="primary" onClick={addHandler}>添加</Button>
+            <Table columns={columns} dataSource={users.data} rowKey="id" loading={usersLoading} />
             <UserModal visible={modalVisible} handleCancel={handleCancel} onFinish={onFinish} record={record}></UserModal>
         </div>
     );
@@ -68,3 +114,4 @@ const index = ({ users }: any) => {
 
 // })(index);
 export default connect(state => state)(index);
+

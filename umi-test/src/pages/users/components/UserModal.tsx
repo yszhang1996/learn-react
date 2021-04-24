@@ -5,7 +5,11 @@ const UserModal = (props) => {
     const [form] = Form.useForm()
     const { visible, record, handleCancel, onFinish } = props
     useEffect(() => {
-        form.setFieldsValue(record)
+        if (record) {
+            form.setFieldsValue(record)
+        } else {
+            form.resetFields()
+        }
     }, [visible]);
 
     const close = () => {
@@ -13,6 +17,7 @@ const UserModal = (props) => {
     }
 
     const onOk = () => {
+        // 点击OK按钮后触发表单的提交时间，提交成功走onFinish，提交失败走onFinishFailed
         form.submit()
     }
 
@@ -46,7 +51,7 @@ const UserModal = (props) => {
                     <Form.Item
                         label="Create Time"
                         name="create_time"
-                        rules={[{ required: true, message: 'Please input your create time!' }]}
+                        rules={[{ required: false, message: 'Please input your create time!' }]}
                     >
                         <Input />
                     </Form.Item>
