@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { Table, Popconfirm, Button } from 'antd';
-import { connect } from "umi";
+import { connect, Dispatch, Loading, UserState } from "umi";
 import UserModal from './components/UserModal';
-import './index.less'
+import './index.less';
+import { SingleUserType, FormVavlues } from "./data.d";
 
-const index = ({ users, dispatch, loading }: any) => {
+interface UserPageProps {
+    users: UserState,
+    dispatch: Dispatch,
+    loading: Loading,
+}
+
+const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, loading }) => {
     console.log(loading);
     const usersLoading = loading.models.users
     const [modalVisible, setModalVisible] = useState(false);
-    const [record, setRecord] = useState({ name: '', id: undefined });
+    const [record, setRecord] = useState<SingleUserType | undefined>(undefined);
 
     const columns = [
         {
@@ -29,7 +36,7 @@ const index = ({ users, dispatch, loading }: any) => {
         {
             title: 'Action',
             key: 'action',
-            render: (text: string, record: { name: string }) => (
+            render: (text: string, record: SingleUserType) => (
                 <span>
                     <a onClick={() => { editHandler(record) }}>Edit</a>&nbsp;&nbsp;
                     <Popconfirm
@@ -44,14 +51,14 @@ const index = ({ users, dispatch, loading }: any) => {
             ),
         },
     ];
-    const editHandler = (record: { name: string }) => {
+    const editHandler = (record: SingleUserType) => {
         setModalVisible(true)
         setRecord(record)
     }
     const handleCancel = () => {
         setModalVisible(false)
     }
-    const onFinish = (res) => {
+    const onFinish = (res: FormVavlues) => {
         let id: number | undefined
         id = record ? record.id : undefined
         if (id !== undefined) {
@@ -112,6 +119,6 @@ const index = ({ users, dispatch, loading }: any) => {
 
 //     return state
 
-// })(index);
-export default connect(state => state)(index);
+// })(UserListPage);
+export default connect(state => state)(UserListPage);
 

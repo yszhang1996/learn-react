@@ -1,7 +1,8 @@
 import request, { extend } from 'umi-request';
 import { message } from "antd";
+import { FormVavlues } from "./data.d";
 
-const errorHandler = function (error) {
+const errorHandler = function (error: any) {
     if (error.response) {
         if (error.response.status > 400) {
             message.error(error.data.message ? error.data.message : error.data);
@@ -29,7 +30,7 @@ request.interceptors.request.use((url, options) => {
 
 const extendRequest = extend({ errorHandler });
 
-export const getRemoteList = async (params) => {
+export const getRemoteList = async () => {
     return extendRequest('/api/users', {
         method: 'get',
     }).then(res => {
@@ -39,7 +40,7 @@ export const getRemoteList = async (params) => {
     })
 }
 
-export const editRecord = async ({ id, record }) => {
+export const editRecord = async ({ id, record }: { id: number, record: FormVavlues }) => {
     return extendRequest(`/api/users/${id}`, {
         method: 'put',
         data: record
@@ -51,7 +52,7 @@ export const editRecord = async ({ id, record }) => {
     })
 }
 
-export const deleteRecord = async ({ id }) => {
+export const deleteRecord = async ({ id }: { id: number }) => {
     return extendRequest(`/api/users/${id}`, {
         method: 'delete'
     }).then(res => {
@@ -62,7 +63,7 @@ export const deleteRecord = async ({ id }) => {
     })
 }
 
-export const addRecord = async ({ record }) => {
+export const addRecord = async ({ record }: { record: FormVavlues }) => {
     return extendRequest(`/api/users/`, {
         method: 'post',
         data: record
