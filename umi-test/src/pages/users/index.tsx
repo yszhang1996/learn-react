@@ -1,19 +1,21 @@
 import React, { useState, useRef, FC } from 'react';
 import { Button, } from 'antd';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { connect, Dispatch, UserState, } from 'umi';
+import { connect, Dispatch, UserState, history } from 'umi';
 import UserModal from './components/UserModal';
-import { SingleUserType, FormVavlues } from './data.d';
+import { SingleUserType, FormVavlues } from './data';
 import './index.less'
 import { getRemoteList } from './service'
 
 interface UserPageProps {
     users: UserState,
     dispatch: Dispatch,
+    breadcrumbName: string,
 }
 
-const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
+const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, children }) => {
     const [modalVisible, setModalVisible] = useState(false);
+
     const [record, setRecord] = useState<SingleUserType | undefined>(undefined);
 
     const columns: ProColumns<SingleUserType>[] = [
@@ -67,14 +69,18 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
             ],
         },
     ];
+
     const ref = useRef<ActionType>();
+
     const editHandler = (record: SingleUserType) => {
         setModalVisible(true)
         setRecord(record)
     }
+
     const handleCancel = () => {
         setModalVisible(false)
     }
+
     const onFinish = (res: FormVavlues) => {
         console.log('add');
         dispatch({
@@ -88,6 +94,7 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
         })
         setModalVisible(false);
     }
+
     const confirmDelete = (id: number) => {
         dispatch({
             type: 'users/delete',
@@ -97,10 +104,12 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
             }
         })
     }
+
     const addHandler = () => {
         setRecord(undefined);
         setModalVisible(true);
     }
+
     const requestHandler = async (params: {
         pageSize: number;
         current: number;
@@ -114,16 +123,6 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
             success: true,
             total: users.meta.total
         }
-    }
-    const resetHandler = async () => {
-        console.log('触发reset');
-        dispatch({
-            type: 'users/getRemote',
-            payload: {
-                page: users.meta.page,
-                per_page: users.meta.per_page,
-            },
-        });
     }
 
     const onSave = async (Key: number, row: SingleUserType) => {
@@ -156,23 +155,25 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
                 toolBarRender={() => [
                     <Button key="button" type="primary" onClick={addHandler}>
                         新建
+                    </Button>,
+                    <Button key="button" type="primary" onClick={() => {
+                        history.push('/users/name')
+                    }}>
+                        跳转
                     </Button>
                 ]}
                 options={{
                     density: true,
                     fullScreen: true,
-                    reload: () => {
-                        resetHandler();
-                    },
                     setting: true,
                 }}
                 request={requestHandler}
             />
             <UserModal visible={modalVisible} handleCancel={handleCancel} onFinish={onFinish} record={record}></UserModal>
+            <div>{children}</div>
         </div>
     );
 }
-
 // const mapStateToProps = (state) => {
 //     console.log(state);
 
