@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { Table, Popconfirm, Button } from 'antd';
-import { connect, Dispatch, Loading, UserState } from "umi";
+import React, { useState, useRef, FC } from 'react';
+import { Button, } from 'antd';
+import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import { connect, Dispatch, UserState, } from 'umi';
 import UserModal from './components/UserModal';
-import './index.less';
-import { SingleUserType, FormVavlues } from "./data.d";
+import { SingleUserType, FormVavlues } from './data.d';
+import './index.less'
+import { getRemoteList } from './service'
 
 interface UserPageProps {
     users: UserState,
     dispatch: Dispatch,
-    loading: Loading,
 }
 
-const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, loading }) => {
-    console.log(loading);
-    const usersLoading = loading.models.users
+const UserListPage: React.FC<UserPageProps> = ({ users, dispatch }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [record, setRecord] = useState<SingleUserType | undefined>(undefined);
 
-    const columns = [
+    const columns: ProColumns<SingleUserType>[] = [
         {
-            title: 'ID',
+            title: 'id',
             dataIndex: 'id',
             key: 'id',
+            valueType: 'index',
         },
         {
             title: 'Name',
@@ -29,28 +29,45 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, loading }) => 
             key: 'name',
         },
         {
+            title: 'email',
+            dataIndex: 'email',
+            key: 'email',
+        },
+        {
             title: 'Create',
             dataIndex: 'create_time',
             key: 'create_time',
+            valueType: 'dateTime',
+            search: false,
         },
         {
-            title: 'Action',
-            key: 'action',
-            render: (text: string, record: SingleUserType) => (
-                <span>
-                    <a onClick={() => { editHandler(record) }}>Edit</a>&nbsp;&nbsp;
-                    <Popconfirm
-                        title="确定删除该项数据吗？"
-                        onConfirm={() => { confirmDelete(record.id) }}
-                        okText="确定"
-                        cancelText="取消"
-                    >
-                        <a>Delete</a>
-                    </Popconfirm>
-                </span>
-            ),
+            title: 'status',
+            dataIndex: 'status',
+            key: 'status',
+            search: false,
+        },
+        {
+            title: '操作',
+            key: 'option',
+            width: 120,
+            valueType: 'option',
+            render: (_, row, index, action) => [
+                <a key="editable"
+                    onClick={() => {
+                        action?.startEditable(row.id);
+                    }}>
+                    编辑
+                </a>,
+                <a key="delete"
+                    onClick={() => {
+                        confirmDelete(row.id);
+                    }}>
+                    删除
+                </a>,
+            ],
         },
     ];
+    const ref = useRef<ActionType>();
     const editHandler = (record: SingleUserType) => {
         setModalVisible(true)
         setRecord(record)
@@ -59,38 +76,24 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, loading }) => 
         setModalVisible(false)
     }
     const onFinish = (res: FormVavlues) => {
-        let id: number | undefined
-        id = record ? record.id : undefined
-        if (id !== undefined) {
-            console.log('edit');
-            dispatch({
-                // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
-                // 必须给type加上命名空间users用来指定所用的model
-                type: 'users/edit',
-                payload: {
-                    id,
-                    record: res
-                }
-            })
-        } else {
-            console.log('add');
-            dispatch({
-                // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
-                // 必须给type加上命名空间users用来指定所用的model
-                type: 'users/add',
-                payload: {
-                    record: res
-                }
-            })
-        }
-
+        console.log('add');
+        dispatch({
+            // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
+            // 必须给type加上命名空间users用来指定所用的model
+            type: 'users/add',
+            payload: {
+                record: res,
+                ref
+            }
+        })
         setModalVisible(false);
     }
     const confirmDelete = (id: number) => {
         dispatch({
             type: 'users/delete',
             payload: {
-                id
+                id,
+                ref
             }
         })
     }
@@ -98,10 +101,73 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, loading }) => 
         setRecord(undefined);
         setModalVisible(true);
     }
+    const requestHandler = async (params: {
+        pageSize: number;
+        current: number;
+    }) => {
+        console.log('触发requestHandler');
+        console.log(params)
+        const users = await getRemoteList({ page: params.current, per_page: params.pageSize, });
+        console.log(users);
+        return {
+            data: users.data,
+            success: true,
+            total: users.meta.total
+        }
+    }
+    const resetHandler = async () => {
+        console.log('触发reset');
+        dispatch({
+            type: 'users/getRemote',
+            payload: {
+                page: users.meta.page,
+                per_page: users.meta.per_page,
+            },
+        });
+    }
+
+    const onSave = async (Key: number, row: SingleUserType) => {
+        console.log(Key, row);
+        dispatch({
+            // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
+            // 必须给type加上命名空间users用来指定所用的model
+            type: 'users/edit',
+            payload: {
+                id: Key,
+                record: row,
+                ref
+            }
+        })
+    }
     return (
         <div className="users-container">
-            <Button type="primary" onClick={addHandler}>添加</Button>
-            <Table columns={columns} dataSource={users.data} rowKey="id" loading={usersLoading} />
+            <ProTable
+                columns={columns}
+                rowKey="id"
+                actionRef={ref}
+                editable={{
+                    type: 'single',
+                    onSave: onSave,
+                }}
+                pagination={{
+                    pageSizeOptions: ['5', '10', '20'],
+                    pageSize: 5,
+                }}
+                toolBarRender={() => [
+                    <Button key="button" type="primary" onClick={addHandler}>
+                        新建
+                    </Button>
+                ]}
+                options={{
+                    density: true,
+                    fullScreen: true,
+                    reload: () => {
+                        resetHandler();
+                    },
+                    setting: true,
+                }}
+                request={requestHandler}
+            />
             <UserModal visible={modalVisible} handleCancel={handleCancel} onFinish={onFinish} record={record}></UserModal>
         </div>
     );

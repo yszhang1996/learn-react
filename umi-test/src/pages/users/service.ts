@@ -3,6 +3,7 @@ import { message } from "antd";
 import { FormVavlues } from "./data.d";
 
 const errorHandler = function (error: any) {
+    console.log("errorHandler");    
     if (error.response) {
         if (error.response.status > 400) {
             message.error(error.data.message ? error.data.message : error.data);
@@ -20,7 +21,6 @@ const errorHandler = function (error: any) {
 };
 
 request.interceptors.request.use((url, options) => {
-    console.log(url, options);
     return {
         url: `${url}`,
         options: { ...options, headers: { 'X-Access-Token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9' } },
@@ -30,8 +30,8 @@ request.interceptors.request.use((url, options) => {
 
 const extendRequest = extend({ errorHandler });
 
-export const getRemoteList = async () => {
-    return extendRequest('/api/users', {
+export const getRemoteList = async ({ page, per_page, }: { page: number; per_page: number; }) => {
+    return extendRequest(`/api/users?page=${page}&per_page=${per_page}`, {
         method: 'get',
     }).then(res => {
         return res

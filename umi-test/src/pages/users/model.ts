@@ -1,4 +1,5 @@
 import { Reducer, Effect, Subscription } from 'umi'
+import select from "dva";
 import { getRemoteList, editRecord, deleteRecord, addRecord } from "./service";
 import { SingleUserType } from "./data.d";
 
@@ -15,7 +16,7 @@ interface UserModalType {
     namespace: 'users',
     state: UserState,
     reducers: {
-        getList: Reducer<UserState>
+        getList: Reducer<UserState>,
     },
     effects: {
         getRemote: Effect,
@@ -44,37 +45,32 @@ const UserModel: UserModalType = {
         },
     },
     effects: {
-        *getRemote(action, { put, call }) {
-            const data = yield call(getRemoteList)
+        *getRemote({ payload: { page, per_page } }, { put, call }) {
+            console.log('getremote');
+            const data = yield call(getRemoteList, { page, per_page } = { page: 1, per_page: 5 })
             yield put({
                 type: 'getList',
                 payload: data,
             })
         },
-        *edit({ payload: { id, record } }, { put, call }) {
+        *edit({ payload: { id, record, ref } }, effect) {
+            const { put, call } = effect
             const data = yield call(editRecord, { id, record })
+            const { users: { meta } } = yield effect.select((states: UserState) => states)
             if (data) {
-                yield put({
-                    type: 'getRemote',
-                })
+                ref.current.reload()
             }
         },
-        *delete({ payload: { id } }, { put, call }) {
+        *delete({ payload: { id, ref } }, { put, call }) {
             const data = yield call(deleteRecord, { id })
-            console.log(data);
-
             if (data) {
-                yield put({
-                    type: 'getRemote',
-                })
+                ref.current.reload()
             }
         },
-        *add({ payload: { record } }, { put, call }) {
+        *add({ payload: { record, ref } }, { put, call }) {
             const data = yield call(addRecord, { record })
             if (data) {
-                yield put({
-                    type: 'getRemote',
-                })
+                ref.current.reload()
             }
         },
     },
@@ -82,9 +78,13 @@ const UserModel: UserModalType = {
         setup({ dispatch, history }) {
             return history.listen(({ pathname }) => {
                 if (pathname === '/users') {
-                    dispatch({
-                        type: 'getRemote'
-                    })
+                    // dispatch({
+                    //     type: 'getRemote',
+                    //     payload: {
+                    //         page: 1,
+                    //         per_page: 5,
+                    //     },
+                    // })
                 }
             })
         }
