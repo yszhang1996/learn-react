@@ -1,13 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 
-const login = () => {
+const login: FC = () => {
     return (
         <div>
             <h2>this is login</h2>
         </div>
     );
 }
-
-login.breadcrumbName = "登录"
 
 export default login;

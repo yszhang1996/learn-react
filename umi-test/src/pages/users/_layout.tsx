@@ -1,10 +1,11 @@
-const Layout = (props) => {
-    console.log(props);
+import { FC } from 'react';
+
+const Layout: FC = ({ children }) => {
     return (
         <div>
             <h2>Layout</h2>
             <div>
-                {props.children}
+                {children}
             </div>
         </div>
     );

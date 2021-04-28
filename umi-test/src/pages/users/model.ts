@@ -48,17 +48,22 @@ const UserModel: UserModalType = {
         *getRemote({ payload: { page, per_page } }, { put, call }) {
             console.log('getremote');
             const data = yield call(getRemoteList, { page, per_page } = { page: 1, per_page: 5 })
-            yield put({
-                type: 'getList',
-                payload: data,
-            })
+            if (data) {
+                yield put({
+                    type: 'getList',
+                    payload: data,
+                })
+            }
         },
-        *edit({ payload: { id, record, ref } }, effect) {
+        *edit({ payload: { id, record, ref }, callback }, effect) {
             const { put, call } = effect
             const data = yield call(editRecord, { id, record })
             const { users: { meta } } = yield effect.select((states: UserState) => states)
             if (data) {
                 ref.current.reload()
+                callback('success')
+            } else {
+                callback(false)
             }
         },
         *delete({ payload: { id, ref } }, { put, call }) {

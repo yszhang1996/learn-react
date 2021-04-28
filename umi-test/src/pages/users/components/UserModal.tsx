@@ -1,6 +1,6 @@
 import { useEffect, FC } from "react";
-import { Modal, Form, Input } from 'antd';
-import { SingleUserType,FormVavlues } from "../data.d";
+import { Modal, Form, Input, DatePicker } from 'antd';
+import { SingleUserType, FormVavlues } from "../data.d";
 
 interface UserModalProps {
     visible: boolean,
@@ -61,7 +61,7 @@ const UserModal: FC<UserModalProps> = (props) => {
                         name="create_time"
                         rules={[{ required: false, message: 'Please input your create time!' }]}
                     >
-                        <Input />
+                        <DatePicker showTime />
                     </Form.Item>
                     <Form.Item
                         label="Status"

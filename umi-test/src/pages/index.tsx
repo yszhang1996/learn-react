@@ -1,6 +1,7 @@
+import { FC } from "react";
 import styles from './index.less';
 
-const IndexPage = () => {
+const IndexPage:FC = () => {
   console.log('indexpage');
   
   return (
@@ -10,5 +11,4 @@ const IndexPage = () => {
   );
 }
 
-IndexPage.breadcrumbName = "首页"
 export default IndexPage

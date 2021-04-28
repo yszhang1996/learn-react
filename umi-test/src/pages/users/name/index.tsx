@@ -1,6 +1,6 @@
-const Name = (props) => {
-    console.log(props);
-    
+import { FC } from 'react';
+
+const Name: FC = () => {
     return (
         <div>
             <h2>name</h2>

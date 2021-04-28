@@ -4,8 +4,8 @@ import '@@/core/devScripts';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from 'C:/Users/张康辉/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/runtime';
-import { renderClient } from 'C:/Users/张康辉/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/renderer-react/dist/index.js';
+import { ApplyPluginsType } from 'C:/Users/zhang/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/runtime';
+import { renderClient } from 'C:/Users/zhang/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/renderer-react/dist/index.js';
 import { getRoutes } from './core/routes';
 
 

@@ -13,7 +13,7 @@ interface UserPageProps {
     breadcrumbName: string,
 }
 
-const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, children }) => {
+const UserListPage: FC<UserPageProps> = ({ users, dispatch, children }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     const [record, setRecord] = useState<SingleUserType | undefined>(undefined);
@@ -23,7 +23,7 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, children }) =>
             title: 'id',
             dataIndex: 'id',
             key: 'id',
-            valueType: 'index',
+            search: false,
         },
         {
             title: 'Name',
@@ -125,17 +125,27 @@ const UserListPage: React.FC<UserPageProps> = ({ users, dispatch, children }) =>
         }
     }
 
-    const onSave = async (Key: number, row: SingleUserType) => {
+    const onSave = async (Key: any, row: SingleUserType) => {
         console.log(Key, row);
-        dispatch({
-            // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
-            // 必须给type加上命名空间users用来指定所用的model
-            type: 'users/edit',
-            payload: {
-                id: Key,
-                record: row,
-                ref
-            }
+        return new Promise<void>((resolve, reject) => {
+            dispatch({
+                // 在同一model内部使用dispatch可以省略命名空间，但是当前页面不是model.ts，所以使用dispatch时，
+                // 必须给type加上命名空间users用来指定所用的model
+                type: 'users/edit',
+                payload: {
+                    id: Key,
+                    record: row,
+                    ref
+                },
+                callback: (res) => {
+                    console.log(res);                    
+                    if (res) {
+                        resolve()
+                    } else {
+                        reject()
+                    }
+                }
+            })
         })
     }
     return (

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Button, Descriptions, Result, Avatar, Space, Statistic } from 'antd';
 import { LikeOutlined, UserOutlined } from '@ant-design/icons';
-import { history } from 'umi';
+import { history, Location } from 'umi';
 import type { ProSettings } from '@ant-design/pro-layout';
 import ProLayout, { PageContainer, SettingDrawer } from '@ant-design/pro-layout';
 import defaultProps from './_defaultProps';
 
-export default (props) => {
+const Layout: FC<{ location: Location }> = (props) => {
+    const path = props.location.pathname
+
     const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({ fixSiderbar: true });
-    const [pathname, setPathname] = useState('/');
+    const [pathname, setPathname] = useState(path);
     return (
         <div
             id="test-pro-layout"
@@ -24,7 +26,7 @@ export default (props) => {
                 waterMarkProps={{
                     content: 'Pro Layout',
                 }}
-                onPageChange={(Location) => {
+                onPageChange={(Location: any) => {
                     console.log(Location);
                     history.push(Location);
                 }}
@@ -87,3 +89,5 @@ export default (props) => {
         </div>
     );
 };
+
+export default Layout

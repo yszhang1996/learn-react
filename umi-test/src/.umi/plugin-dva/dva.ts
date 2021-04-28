@@ -3,9 +3,9 @@ import { Component } from 'react';
 import { ApplyPluginsType } from 'umi';
 import dva from 'dva';
 // @ts-ignore
-import createLoading from 'C:/Users/张康辉/Documents/learn-react/umi-test/node_modules/dva-loading/dist/index.esm.js';
+import createLoading from 'C:/Users/zhang/Documents/learn-react/umi-test/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
-import ModelModel0 from 'C:/Users/张康辉/Documents/learn-react/umi-test/src/pages/users/model.ts';
+import ModelModel0 from 'C:/Users/zhang/Documents/learn-react/umi-test/src/pages/users/model.ts';
 
 let app:any = null;
 

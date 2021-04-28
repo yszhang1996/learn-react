@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from 'C:/Users/张康辉/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'C:/Users/zhang/Documents/learn-react/umi-test/node_modules/umi/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -13,20 +13,17 @@ export function getRoutes() {
       {
         "path": "/404",
         "exact": true,
-        "component": require('@/pages/404.tsx').default,
-        "breadcrumbName": "404"
+        "component": require('@/pages/404.tsx').default
       },
       {
         "path": "/",
         "exact": true,
-        "component": require('@/pages/index.tsx').default,
-        "breadcrumbName": "首页"
+        "component": require('@/pages/index.tsx').default
       },
       {
         "path": "/login",
         "exact": true,
-        "component": require('@/pages/login/index.tsx').default,
-        "breadcrumbName": "登录"
+        "component": require('@/pages/login/index.tsx').default
       },
       {
         "path": "/manage",

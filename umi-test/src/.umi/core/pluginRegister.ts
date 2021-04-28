@@ -1,12 +1,12 @@
 // @ts-nocheck
 import { plugin } from './plugin';
-import * as Plugin_0 from 'C:/Users/张康辉/Documents/learn-react/umi-test/src/.umi/plugin-dva/runtime.tsx';
+import * as Plugin_0 from 'C:/Users/zhang/Documents/learn-react/umi-test/src/.umi/plugin-dva/runtime.tsx';
 import * as Plugin_1 from '../plugin-initial-state/runtime';
 import * as Plugin_2 from '../plugin-model/runtime';
 
   plugin.register({
     apply: Plugin_0,
-    path: 'C:/Users/张康辉/Documents/learn-react/umi-test/src/.umi/plugin-dva/runtime.tsx',
+    path: 'C:/Users/zhang/Documents/learn-react/umi-test/src/.umi/plugin-dva/runtime.tsx',
   });
   plugin.register({
     apply: Plugin_1,

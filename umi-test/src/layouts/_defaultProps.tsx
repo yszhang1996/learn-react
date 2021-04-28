@@ -1,5 +1,4 @@
-import React from 'react';
-import { SmileOutlined, CrownOutlined, TabletOutlined, AntDesignOutlined } from '@ant-design/icons';
+import { SmileOutlined, UserOutlined, TabletOutlined, AntDesignOutlined } from '@ant-design/icons';
 
 export default {
   route: {
@@ -14,7 +13,7 @@ export default {
       {
         path: '/',
         name: '用户',
-        icon: <CrownOutlined />,
+        icon: <UserOutlined />,
         access: 'canAdmin',
         component: '@/pages/users/index.tsx',
         routes: [
