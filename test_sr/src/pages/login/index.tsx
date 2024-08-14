@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './index.less';
 import type { GetProps } from 'antd';
 import { Input } from 'antd';
@@ -8,11 +8,15 @@ import { getVerifyImg } from '@/request/api'
 type OTPProps = GetProps<typeof Input.OTP>;
 export default function Page() {
 
+  const [imgBase64,setImgBase64] = useState('')
   useEffect(() => {
     console.log('useEffect');
     console.log(process.env.BASE_API);
     getVerifyImg().then(res => {
       console.log(res);
+      if(res.data.yzm){
+        setImgBase64('data:image/jpeg;base64,' + res.data.yzm)
+      }
     })
   }, []);
   const onChange: OTPProps['onChange'] = (text) => {
@@ -30,7 +34,7 @@ export default function Page() {
         <div className={styles.login_box_list}><Input showCount maxLength={20} placeholder="请输入密码" /></div>
         <div className={styles.login_box_list}>
           <Input.OTP length={4} formatter={(str) => str.toUpperCase()} {...sharedProps} />
-          <img src={yayJpg} width={130} alt="" />
+          <img src={imgBase64} width={130} alt="" />
         </div>
       </div>
     </div>

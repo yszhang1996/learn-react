@@ -5,7 +5,7 @@ import axios from './'
 import { listByPhoneData, ArticleType, IndexArticleData, TradeAnnoParams, NoticeListType, NewsDetailType, DictDetailType, ArticleListType, TradeAnnoListType, SumNewslistType, SumPolicylistType, CodeBase64Type, saveSuggestCommitParams,tradeAnnoTradeTypeParams,tradeAnnoTradeTypeList,tradeAnnoTradeTypeChildren,annoReceiveListType,AnnouncementT,getAnnoReceiveStatisticsType,todayT } from "../types"
 
 // 获取登录时的图片验证码
-export const getVerifyImg = () => axios.post('/unified/sys/getVerifyImg', {})
+export const getVerifyImg = () => axios.post<{ data: {yzm: string}}>('/unified/sys/getVerifyImg', {})
 
 // 获取字典详情
 export const getDictDetail = (params: { dictName: string }) => axios.get<{ content: DictDetailType[] }>('/api/dictDetail', params)
