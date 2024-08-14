@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "author": "yszhang1996 <yszhang1996@outlook.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "qs": "6.7.0",
+    "@ant-design/pro-components": "^2.7.15",
+    "antd": "^5.20.1",
+    "axios": "^1.7.4",
+    "umi": "^4.3.12"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@umijs/plugins": "^4.3.12",
+    "typescript": "^5.5.4"
+  }
+}
