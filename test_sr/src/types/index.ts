@@ -1,3 +1,10 @@
+export type PropsMenu = {
+    pageUrl: string;
+    icon?: React.ReactNode; // 可选的图标
+    powerName: string;
+    children?: PropsMenu[]; // 可能有子菜单
+};
+
 export interface DictDetailType {
     createBy: string;
     createTime: string;
@@ -40,24 +47,24 @@ export interface TradeAnnoParams {
     title?: string;
     tradeRegionCode?: string;
 }
-export interface tradeAnnoTradeTypeParams { 
-    code:string
+export interface tradeAnnoTradeTypeParams {
+    code: string
 }
-export interface tradeAnnoTradeTypeChildren { 
+export interface tradeAnnoTradeTypeChildren {
     dictCode: string,
     id: number,
     name: string,
     parentId: number,
     sort: number,
-    value:string,
-    childrenData?: []|null,
+    value: string,
+    childrenData?: [] | null,
 }
-export interface tradeAnnoTradeTypeList<T> { 
+export interface tradeAnnoTradeTypeList<T> {
     name: string,
     dictCode: string,
     id: number,
     sort: number,
-    parentId:number,
+    parentId: number,
     value: string,
     childrenData: T,
 }
@@ -70,29 +77,29 @@ export interface NoticeListType {
     content: string,
     fileList: { fileName: string, fileUrl: string }[],
 }
-export interface getAnnoReceiveStatisticsType<T> { 
+export interface getAnnoReceiveStatisticsType<T> {
     today: T,
-    total?:[]
+    total?: []
 }
-export interface todayT { 
-    bidWinningResult:number,
-    candidatesForBid:number,
-    correctionAnnouncement:number,
-    prequalification:number,
+export interface todayT {
+    bidWinningResult: number,
+    candidatesForBid: number,
+    correctionAnnouncement: number,
+    prequalification: number,
     tenderAnnouncement: number,
-    total:number
+    total: number
 }
-export interface annoReceiveListType<T> { 
+export interface annoReceiveListType<T> {
     tenderAnnouncement: Array<T>,
     bidAnnouncement: Array<T>,
-    correctionAnnouncement:Array<T>
+    correctionAnnouncement: Array<T>
 }
 
-export interface AnnouncementT { 
+export interface AnnouncementT {
     id: number,
     publishTime: string,
     title: string,
-    url:string
+    url: string
 }
 export interface NewsDetailType {
     categoryId: number,

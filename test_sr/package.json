@@ -9,10 +9,11 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "qs": "6.7.0",
+    "@ant-design/icons": "^5.4.0",
     "@ant-design/pro-components": "^2.7.15",
     "antd": "^5.20.1",
     "axios": "^1.7.4",
+    "qs": "6.7.0",
     "umi": "^4.3.12"
   },
   "devDependencies": {

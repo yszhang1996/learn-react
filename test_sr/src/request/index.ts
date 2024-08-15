@@ -20,7 +20,7 @@ console.log("url==="+URL);
 enum RequestEnums {
     TIMEOUT = 20000,
     FAIL = '500', // 请求失败
-    SUCCESS = '000000', // 请求成功
+    SUCCESS = 200, // 请求成功
 }
 const config = {
     // 默认地址

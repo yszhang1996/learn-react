@@ -2,10 +2,18 @@
  * api接口统一管理
  */
 import axios from './'
-import { listByPhoneData, ArticleType, IndexArticleData, TradeAnnoParams, NoticeListType, NewsDetailType, DictDetailType, ArticleListType, TradeAnnoListType, SumNewslistType, SumPolicylistType, CodeBase64Type, saveSuggestCommitParams,tradeAnnoTradeTypeParams,tradeAnnoTradeTypeList,tradeAnnoTradeTypeChildren,annoReceiveListType,AnnouncementT,getAnnoReceiveStatisticsType,todayT } from "../types"
+import { listByPhoneData, ArticleType, IndexArticleData, TradeAnnoParams, NoticeListType, NewsDetailType, DictDetailType, ArticleListType, TradeAnnoListType, SumNewslistType, SumPolicylistType, CodeBase64Type, saveSuggestCommitParams, tradeAnnoTradeTypeParams, tradeAnnoTradeTypeList, tradeAnnoTradeTypeChildren, annoReceiveListType, AnnouncementT, getAnnoReceiveStatisticsType, todayT } from "../types"
 
 // 获取登录时的图片验证码
-export const getVerifyImg = () => axios.post<{ data: {yzm: string}}>('/unified/sys/getVerifyImg', {})
+export const getVerifyImg = () => axios.post<{ data: { yzm: string, auth: string } }>('/unified/sys/getVerifyImg', {})
+
+// 登录
+export const entryHome = (params: {
+    account: string,
+    password: string,
+    useryzm: string,
+    auth: string,
+}) => axios.post<{ data: { token: string, phone: string, menuTree: [] } }>('/unified/sys/entryHome', params, true)
 
 // 获取字典详情
 export const getDictDetail = (params: { dictName: string }) => axios.get<{ content: DictDetailType[] }>('/api/dictDetail', params)
@@ -15,12 +23,12 @@ export const getIndexArticle = () => axios.post<IndexArticleData>('/api/frontDat
 // 获取首页顶部轮播图信息
 export const getPicNews = (params: { limit: number }) => axios.post<ArticleType[]>('/api/frontData/getPicNews', params, true)
 // 获取首页 今日发布
-export const getAnnoReceiveStatistics = () => axios.get<{data:getAnnoReceiveStatisticsType<todayT>}>('api/annoReceive/getAnnoReceiveStatistics')
+export const getAnnoReceiveStatistics = () => axios.get<{ data: getAnnoReceiveStatisticsType<todayT> }>('api/annoReceive/getAnnoReceiveStatistics')
 // 获取首页各种公告信息
 export const tradeAnnoList = (params: TradeAnnoParams) => axios.post<{ content: NoticeListType[], totalElements: number }>('/api/tradeAnno/list', params)
-export const annoReceiveList = (params: TradeAnnoParams) => axios.post < annoReceiveListType<AnnouncementT>>('/api/annoReceive/list ', params)
+export const annoReceiveList = (params: TradeAnnoParams) => axios.post<annoReceiveListType<AnnouncementT>>('/api/annoReceive/list ', params)
 // 交易公开 - 左侧导航
-export const tradeAnnoTradeType = (params: tradeAnnoTradeTypeParams) => axios.post<tradeAnnoTradeTypeList<tradeAnnoTradeTypeChildren[]>[]>('/api/tradeAnno/tradeType',params,true)
+export const tradeAnnoTradeType = (params: tradeAnnoTradeTypeParams) => axios.post<tradeAnnoTradeTypeList<tradeAnnoTradeTypeChildren[]>[]>('/api/tradeAnno/tradeType', params, true)
 
 // 获取文章列表
 export const getArticleList = (params: ArticleListType) => axios.post<{ content: NewsDetailType[], totalElements: number }>('/api/articleInfo/list', params)
