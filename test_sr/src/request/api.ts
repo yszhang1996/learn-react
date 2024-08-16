@@ -27,8 +27,8 @@ export const getCrowdTimeChart = (params: getCrowdTimeChartParams) => axios.post
 // 获取门诊和住院统计百分比
 export const getCrowdDataIncrement = (params: any) => axios.post<{ data: any }>('/portal/dataanalysis/getCrowdDataIncrement', params)
 
-// 获取字典详情
-export const getDictDetail = (params: { dictName: string }) => axios.get<{ content: DictDetailType[] }>('/api/dictDetail', params)
+// 获取顶部门诊数据统计和住院数据统计
+export const patientStatistics = (params: any) => axios.post<{ data: any }>('/portal/resourceOverview/patientStatistics', params)
 
 // 获取首页顶部（通知公告、工作动态、政策法规）文章列表
 export const getIndexArticle = () => axios.post<IndexArticleData>('/api/frontData/getIndexArticle')

@@ -1,4 +1,41 @@
 .dataResource {
     width: 100%;
     height: 100%;
+    .outpatient_and_inpatient {
+        width: calc(100% - 80px);
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 0 20px 20px;
+        padding: 10px 20px 20px;
+        position: relative;
+        .change_data_range {
+          position: absolute;
+          right: 20px;
+          top: 20px;
+          display: flex;
+          align-items: center;
+          column-gap: 20px;
+          * {
+            cursor: pointer;
+            font-size: 14px;
+          }
+          .actived_data {
+            color: #006aed;
+          }
+        }
+        .outpatient_and_inpatient_echarts {
+          display: flex;
+          height: 275px;
+          flex-wrap: wrap;
+          .outpatient_and_inpatient_echarts_left {
+            flex: 2;
+            height: 275px;
+          }
+          .outpatient_and_inpatient_echarts_right {
+            flex: 1;
+            height: 275px;
+            overflow: hidden;
+          }
+        }
+      }
 }

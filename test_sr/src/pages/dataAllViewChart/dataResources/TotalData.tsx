@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import './TotalData.less'
 import { Spin } from 'antd'
-import { getCrowdDataIncrement, getCrowdTimeChart } from '@/request/api'
+import { getCrowdDataIncrement, getCrowdTimeChart, patientStatistics } from '@/request/api'
 import { getCrowdTimeChartParams } from '@/types'
+import CasesCategory from './components/CasesCategory'
+import PatientCategory from './components/PatientCategory'
+import { use } from 'echarts'
 function TotalData({ deptStr }: { deptStr: string }) {
     const [crowdTimeChartLoading, setCrowdTimeChartLoading] = useState(false)
     const [crowdDataIncrementLoading, setCrowdDataIncrementLoading] = useState(false)
     const [caseTotalData, setCaseTotalData] = useState<any[]>([]) // 总病例数的图表数据
     const [otherField, setOtherField] = useState<any>({})
     const [allPercent, setAllPercent] = useState<any>({})  // 总病例数，总患者数，百分比
+    const [patientTotalData, setPatientTotalData] = useState<any[]>([]) // 总患者数的图表数据
+    const [outAndInpatientData, setOutAndInpatientData] = useState<any>(null)
     useEffect(() => {
         getCrowdTimeChartFunc(1)
+        getCrowdTimeChartFunc(2)
         getCrowdDataIncrementFunc()
+        // 获取顶部门诊数据统计和住院数据统计
+        getOutAndInpatientData()
     }, [deptStr])
 
     const getCrowdTimeChartFunc = (type: number) => {
@@ -27,15 +35,13 @@ function TotalData({ deptStr }: { deptStr: string }) {
             params.timePeriod = 0; // 是否自定义统计时间段 0:否 1:是  总病例数默认不自定义统计时间段
             params.patientStatus = 1; // 统计维度 1:病例 2:患者
             params.treatmentType = 3; // 统计维度 1:门诊 2:住院 3:混合/全部
-            // this.dataResourcesTotalLoading++;
         }
-        //   if (type === 2) {
-        //     params.timeType = "year";
-        //     params.timePeriod = 0;
-        //     params.patientStatus = 2;
-        //     params.treatmentType = 3;
-        //     // this.dataResourcesTotalLoading++;
-        //   }
+        if (type === 2) {
+            params.timeType = "year";
+            params.timePeriod = 0;
+            params.patientStatus = 2;
+            params.treatmentType = 3;
+        }
         //   if (type === 3) {
         //     params.timePeriod = 0;
         //     params.timeType = this.selectYearsOrMonths;
@@ -55,9 +61,10 @@ function TotalData({ deptStr }: { deptStr: string }) {
                     let data = Object.values(res.data.result);
                     setCaseTotalData(data)
                 }
-                // if (type === 2) {
-                //   this.patientTotalData = Object.values(res.data.result);
-                // }
+                if (type === 2) {
+                    let data = Object.values(res.data.result);
+                    setPatientTotalData(data)
+                }
                 // if (type === 3) {
                 //   this.peopleTotalXAxisData = [];
                 //   this.peopleTotalData = [];
@@ -94,9 +101,26 @@ function TotalData({ deptStr }: { deptStr: string }) {
                 setAllPercent(res.data.all)
             }
         })
-            .finally(() => {                
+            .finally(() => {
                 setCrowdDataIncrementLoading(false)
             });
+    }
+    const getOutAndInpatientData = () => {
+        patientStatistics({
+            department: deptStr,
+        }).then(res => {
+            setOutAndInpatientData(res.data)
+        })
+    }
+    const judgeUpOrDown = (str: string) => {
+        if (!str) {
+            return null;
+        }
+        if (str.indexOf("-") > -1) {
+            return "down";
+        } else {
+            return "up";
+        }
     }
     return (
         <Spin spinning={crowdTimeChartLoading && crowdDataIncrementLoading}>
@@ -107,7 +131,6 @@ function TotalData({ deptStr }: { deptStr: string }) {
                             <span>总病例数</span>
                         </div>
                         <div className="total_list_top_time">
-                            {/* <span>2000-01-01~2020-12-0</span> */}
                         </div>
                     </div>
                     <div className="total_list_bottom">
@@ -117,28 +140,20 @@ function TotalData({ deptStr }: { deptStr: string }) {
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span
-                                ><span className="total_list_bottom_num_yesterday_up" style={{ color: '#ff0000' }}>
-                                    {/* {{
-                  this.allPercent &&
-                  (this.allPercent.idIncrement === "0.00%"
-                    ? "--"
-                    : this.allPercent.idIncrement)
-                }} */}
+                                ><span className="total_list_bottom_num_yesterday_up" style={{ color: `${judgeUpOrDown(allPercent?.idIncrement) === "up" ? "#f53f3f" : "#32BD4A"}` }}>
                                     {allPercent?.idIncrement}
                                 </span>
-                                <img
-                                    src="../../assets/img/dataOverviewImg/upIcon.png"
-                                    alt=""
-                                />
-                                <img
-                                    src="../../assets/img/dataOverviewImg/downIcon.png"
-                                    alt=""
-                                />
+                                {judgeUpOrDown(allPercent?.idIncrement) === "up" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/upIcon.png")} alt="" />
+                                }
+                                {judgeUpOrDown(allPercent?.idIncrement) === "down" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/downIcon.png")} alt="" />
+                                }
                             </div>
                         </div>
                         <div className="total_list_bottom_charts">
                             {/* <!-- 总病例数极简柱状图 --> */}
-                            {/* <CasesCategory :data="caseTotalData" /> */}
+                            <CasesCategory data={caseTotalData} />
                         </div>
                     </div>
                 </div>
@@ -148,49 +163,29 @@ function TotalData({ deptStr }: { deptStr: string }) {
                             <span>总患者数</span>
                         </div>
                         <div className="total_list_top_time">
-                            {/* <!-- <span>2000-01-01~2020-12-0</span> --> */}
                         </div>
                     </div>
                     <div className="total_list_bottom">
                         <div className="total_list_bottom_num">
                             <div className="total_list_bottom_num_main">
-                                {/* {{ this.otherField && this.otherField.patientCount }} */}
+                                {otherField?.patientCount}
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span
-                                ><span
-                                    className="total_list_bottom_num_yesterday_up"
-                                >
-                                    {/* {{
-                  this.allPercent &&
-                  (this.allPercent.pidIncrement === "0.00%"
-                    ? "--"
-                    : this.allPercent.pidIncrement)
-                }} */}
+                                ><span className="total_list_bottom_num_yesterday_up" style={{ color: `${judgeUpOrDown(allPercent?.pidIncrement) === "up" ? "#f53f3f" : "#32BD4A"}` }}>
+                                    {allPercent?.pidIncrement}
                                 </span>
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.allPercent && this.allPercent.pidIncrement
-                  ) === 'up'
-                "
-                                    src="../../assets/img/dataOverviewImg/upIcon.png"
-                                    alt=""
-                                />
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.allPercent && this.allPercent.pidIncrement
-                  ) === 'down'
-                "
-                                    src="../../assets/img/dataOverviewImg/downIcon.png"
-                                    alt=""
-                                />
+                                {judgeUpOrDown(allPercent?.pidIncrement) === "up" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/upIcon.png")} alt="" />
+                                }
+                                {judgeUpOrDown(allPercent?.pidIncrement) === "down" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/downIcon.png")} alt="" />
+                                }
                             </div>
                         </div>
                         <div className="total_list_bottom_charts">
                             {/* <!-- 总患者数极简曲线图图 --> */}
-                            {/* <patientCategory :data="patientTotalData" /> */}
+                            <PatientCategory data={patientTotalData} />
                         </div>
                     </div>
                 </div>
@@ -202,77 +197,42 @@ function TotalData({ deptStr }: { deptStr: string }) {
                         <div className="total_list_top_time">
                             <span
                             >
-                                {/* {{
-                this.outAndInpatientData &&
-                this.outAndInpatientData.outpatientMinTime
-              }}~{{
-                this.outAndInpatientData &&
-                this.outAndInpatientData.outpatientMaxTime
-              }} */}
+                                {outAndInpatientData?.outpatientMinTime}~{outAndInpatientData?.outpatientMaxTime}
                             </span>
                         </div>
                     </div>
                     <div className="total_list_bottom">
                         <div className="total_list_bottom_num">
                             <div className="total_list_bottom_num_main">
-                                {/* {{
-                this.outAndInpatientData &&
-                Number(this.outAndInpatientData.outCaseCount) +
-                  Number(this.outAndInpatientData.outpatientCount)
-              }} */}
+                                {Number(outAndInpatientData?.outCaseCount) + Number(outAndInpatientData?.outpatientCount)}
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span
-                                ><span
-                                    className="total_list_bottom_num_yesterday_up"
-                                >
-                                    {/* {{
-                  this.outPatientPercent &&
-                  (this.outPatientPercent.idIncrement === "0.00%"
-                    ? "--"
-                    : this.outPatientPercent.idIncrement)
-                }} */}
+                                ><span className="total_list_bottom_num_yesterday_up" style={{ color: `${judgeUpOrDown(allPercent?.idIncrement) === "up" ? "#f53f3f" : "#32BD4A"}` }}>
+                                    {allPercent?.idIncrement}
                                 </span>
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.outPatientPercent && this.outPatientPercent.idIncrement
-                  ) === 'up'
-                "
-                                    src="../../assets/img/dataOverviewImg/upIcon.png"
-                                    alt=""
-                                />
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.outPatientPercent && this.outPatientPercent.idIncrement
-                  ) === 'down'
-                "
-                                    src="../../assets/img/dataOverviewImg/downIcon.png"
-                                    alt=""
-                                />
+                                {judgeUpOrDown(allPercent?.idIncrement) === "up" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/upIcon.png")} alt="" />
+                                }
+                                {judgeUpOrDown(allPercent?.idIncrement) === "down" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/downIcon.png")} alt="" />
+                                }
                             </div>
                         </div>
                         <div className="total_list_bottom_charts">
                             <div className="cases_and_parient">
                                 <div className="cases_total">
-                                    <img src="../../assets/img/dataOverview/cases1.png" alt="" />
+                                    <img src={require("../../../assets/img/dataOverview/cases1.png")} alt="" />
                                     <span className="cases_and_parient_total_text">病例数</span>
                                     <span className="cases_and_parient_total_num">
-                                        {/* {{
-                  this.outAndInpatientData &&
-                  this.outAndInpatientData.outCaseCount
-                }} */}
+                                        {outAndInpatientData?.outCaseCount}
                                     </span>
                                 </div>
                                 <div className="patient_total">
-                                    <img src="../../assets/img/dataOverview/patient1.png" alt="" />
+                                    <img src={require("../../../assets/img/dataOverview/patient1.png")} alt="" />
                                     <span className="cases_and_parient_total_text">患者数</span>
                                     <span className="cases_and_parient_total_num">
-                                        {/* {{
-                  this.outAndInpatientData &&
-                  this.outAndInpatientData.outpatientCount
-                }} */}
+                                        {outAndInpatientData?.outpatientCount}
                                     </span>
                                 </div>
                             </div>
@@ -287,55 +247,26 @@ function TotalData({ deptStr }: { deptStr: string }) {
                         <div className="total_list_top_time">
                             <span
                             >
-                                {/* {{
-                this.outAndInpatientData &&
-                this.outAndInpatientData.inHospitalMinTime
-              }}~{{
-                this.outAndInpatientData &&
-                this.outAndInpatientData.inHospitalMaxTime
-              }} */}
+                                {outAndInpatientData?.inHospitalMinTime}~{outAndInpatientData?.inHospitalMaxTime}
                             </span>
                         </div>
                     </div>
                     <div className="total_list_bottom">
                         <div className="total_list_bottom_num">
                             <div className="total_list_bottom_num_main">
-                                {/* {{
-                this.outAndInpatientData &&
-                Number(this.outAndInpatientData.inCaseCount) +
-                  Number(this.outAndInpatientData.inHospitalCount)
-              }} */}
+                                {Number(outAndInpatientData?.inCaseCount) + Number(outAndInpatientData?.inHospitalCount)}
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span
-                                ><span
-                                    className="total_list_bottom_num_yesterday_up"
-                                >
-                                    {/* {{
-                  this.inPatientPercent &&
-                  (this.inPatientPercent.idIncrement === "0.00%"
-                    ? "--"
-                    : this.inPatientPercent.idIncrement)
-                }} */}
+                                ><span className="total_list_bottom_num_yesterday_up" style={{ color: `${judgeUpOrDown(allPercent?.idIncrement) === "up" ? "#f53f3f" : "#32BD4A"}` }}>
+                                    {allPercent?.idIncrement}
                                 </span>
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.inPatientPercent && this.inPatientPercent.idIncrement
-                  ) === 'up'
-                "
-                                    src="../../assets/img/dataOverviewImg/upIcon.png"
-                                    alt=""
-                                />
-                                <img
-                                    v-if="
-                  judgeUpOrDown(
-                    this.inPatientPercent && this.inPatientPercent.idIncrement
-                  ) === 'down'
-                "
-                                    src="../../assets/img/dataOverviewImg/downIcon.png"
-                                    alt=""
-                                />
+                                {judgeUpOrDown(allPercent?.idIncrement) === "up" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/upIcon.png")} alt="" />
+                                }
+                                {judgeUpOrDown(allPercent?.idIncrement) === "down" &&
+                                    <img src={require("../../../assets/img/dataOverviewImg/downIcon.png")} alt="" />
+                                }
                             </div>
                         </div>
                         <div className="total_list_bottom_charts">
@@ -344,20 +275,14 @@ function TotalData({ deptStr }: { deptStr: string }) {
                             //   style="border-left: 1px solid rgba(174, 210, 249, 0.5)"
                             >
                                 <div className="cases_total">
-                                    <img src="../../assets/img/dataOverview/cases2.png" alt="" />
+                                    <img src={require("../../../assets/img/dataOverview/cases2.png")} alt="" />
                                     <span className="cases_and_parient_total_text">病例数</span>
-                                    {/* <span className="cases_and_parient_total_num">{{
-                  this.outAndInpatientData &&
-                  this.outAndInpatientData.inCaseCount
-                }}</span> */}
+                                    {outAndInpatientData?.inCaseCount}
                                 </div>
                                 <div className="patient_total">
-                                    <img src="../../assets/img/dataOverview/patient2.png" alt="" />
+                                    <img src={require("../../../assets/img/dataOverview/patient2.png")} alt="" />
                                     <span className="cases_and_parient_total_text">患者数</span>
-                                    {/* <span className="cases_and_parient_total_num">{{
-                  this.outAndInpatientData &&
-                  this.outAndInpatientData.inHospitalCount
-                }}</span> */}
+                                    {outAndInpatientData?.inHospitalCount}
                                 </div>
                             </div>
                         </div>

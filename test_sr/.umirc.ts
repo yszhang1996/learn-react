@@ -18,5 +18,6 @@ export default defineConfig({
   npmClient: 'pnpm',
   define: { 'process.env.BASE_API': process.env.BASE_API },
   plugins: ['@umijs/plugins/dist/dva'],
-  dva: {}
+  dva: {},
+  mock: {},
 });

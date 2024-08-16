@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './index.less'
 import { Outlet, connect, useRouteProps  } from 'umi'
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
 const dataAllViewChart = (props: { operateJson: { dataResource: boolean, diseaseSpectrum: boolean } }) => {
     const route = useRouteProps()
     const [tabsList, setTabsList] = useState<{ label: string, value: number }[]>(() => {
@@ -25,6 +27,7 @@ const dataAllViewChart = (props: { operateJson: { dataResource: boolean, disease
     }, [])
 
     return (
+        <ConfigProvider locale={zhCN}>
         <div>
             <div className="dataOverview">
                 <div className="title_tabs">
@@ -47,6 +50,7 @@ const dataAllViewChart = (props: { operateJson: { dataResource: boolean, disease
                 </div>
             </div>
         </div >
+        </ConfigProvider>
     )
 }
 
