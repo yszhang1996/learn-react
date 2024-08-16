@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse } f
 import { message } from 'antd';
 // 引入qs模块，用来序列化post类型的数据
 import qs from 'qs'
+import { history } from 'umi';
 // 数据返回的接口
 // 定义请求响应参数，不含data
 interface Result {
@@ -19,14 +20,15 @@ console.log("url==="+URL);
 
 enum RequestEnums {
     TIMEOUT = 20000,
-    FAIL = '500', // 请求失败
+    FAIL = 500, // 请求失败
     SUCCESS = 200, // 请求成功
+    OVERDUE = 401, // 登录过期
 }
 const config = {
     // 默认地址
     baseURL: URL as string,
     // 设置超时时间
-    timeout: RequestEnums.TIMEOUT as number,
+    timeout: RequestEnums.TIMEOUT,
     // 跨域时候允许携带凭证
     withCredentials: true
 }
@@ -71,7 +73,14 @@ class RequestHttp {
                 const { data, config } = response; // 解构
                 console.log(data);
                 if (data.code && data.code !== RequestEnums.SUCCESS) {
-                    message.error(data.msg); // 此处也可以使用组件提示报错信息
+                    // 区分各种报错场景
+                    // token失效
+                    if (data.code === RequestEnums.OVERDUE){
+                        history.push('/login')
+                        message.error("登录信息失效，请重新登录"); // 此处也可以使用组件提示报错信息
+                        return Promise.reject(data)
+                    }
+                    message.error(data.message); // 此处也可以使用组件提示报错信息
                     return Promise.reject(data)
                 }
                 return data;

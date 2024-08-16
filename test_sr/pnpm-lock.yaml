@@ -14,6 +14,9 @@ importers:
       '@ant-design/pro-components':
         specifier: ^2.7.15
         version: 2.7.15(antd@5.20.1(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(rc-field-form@2.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@umijs/runtime':
+        specifier: ^3.5.42
+        version: 3.5.42(react@18.3.1)
       antd:
         specifier: ^5.20.1
         version: 5.20.1(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1197,8 +1200,14 @@ packages:
   '@types/react-router-dom@4.3.5':
     resolution: {integrity: sha512-eFajSUASYbPHg2BDM1G8Btx+YqGgvROPIg6sBhl3O4kbDdYXdFdfrgQFf/pcBuQVObjfT9AL/dd15jilR5DIEA==}
 
+  '@types/react-router-dom@5.1.7':
+    resolution: {integrity: sha512-D5mHD6TbdV/DNHYsnwBTv+y73ei+mMjrkGrla86HthE4/PVvL1J94Bu3qABU+COXzpL23T1EZapVVpwHuBXiUg==}
+
   '@types/react-router-redux@5.0.27':
     resolution: {integrity: sha512-qC5lbuP2K/kMR/HE3e5ltCJptyiQhmfV0wbklqcqWDbNdpJBDwUsBGP4f/0RDYJf09+OTbz43u6iG+8E0Zcwqw==}
+
+  '@types/react-router@5.1.12':
+    resolution: {integrity: sha512-0bhXQwHYfMeJlCh7mGhc0VJTRm0Gk+Z8T00aiP4702mDUuLs9SMhnd2DitpjWFjdOecx2UXtICK14H9iMnziGA==}
 
   '@types/react-router@5.1.20':
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
@@ -1466,6 +1475,11 @@ packages:
 
   '@umijs/route-utils@4.0.1':
     resolution: {integrity: sha512-+1ixf1BTOLuH+ORb4x8vYMPeIt38n9q0fJDwhv9nSxrV46mxbLF0nmELIo9CKQB2gHfuC4+hww6xejJ6VYnBHQ==}
+
+  '@umijs/runtime@3.5.42':
+    resolution: {integrity: sha512-S6SELu1beXgZ5Wyh0eZx7z8k6YKsh+EqOf3SX0vNBWPp6YpkpWTqwloOsGSHPvgqUDLlpMZn5ldtJ+HQR14JQA==}
+    peerDependencies:
+      react: 16.x || 17.x
 
   '@umijs/server@4.3.12':
     resolution: {integrity: sha512-FeEendEEMXDlL/n/uiFxEe090eDEZQIby28+phW2uRCQ+2++T+BjL7I7Y+Robyd8+TNFpqTshaIV30aYqA/TQA==}
@@ -2839,6 +2853,9 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
+  history-with-query@4.10.4:
+    resolution: {integrity: sha512-JnskQK8X+PbRFHSdDAExhoJyhLnlLZL+UuHQuQhys+Se9/ukRDRBWU4JVTjsiIfbv1fcEmR3oqKW56OYmk5M5w==}
+
   history@4.10.1:
     resolution: {integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==}
 
@@ -3524,6 +3541,13 @@ packages:
   min-indent@1.0.1:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
+
+  mini-create-react-context@0.4.1:
+    resolution: {integrity: sha512-YWCYEmd5CQeHGSAKrYvXgmzzkrvssZcuuQDDeqkT+PziKGMgE+0MCCtcKbROzocGBG1meBLl2FotlRwf4gAzbQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
   minimalistic-assert@1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
@@ -4544,6 +4568,11 @@ packages:
     peerDependencies:
       react: '>=15'
 
+  react-router-dom@5.2.0:
+    resolution: {integrity: sha512-gxAmfylo2QUjcwxI63RhQ5G85Qqt4voZpUXSEqCwykV0baaOTQDR1f0PmY8AELqIyVc0NEZUj0Gov5lNGcXgsA==}
+    peerDependencies:
+      react: '>=15'
+
   react-router-dom@6.3.0:
     resolution: {integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==}
     peerDependencies:
@@ -4558,6 +4587,11 @@ packages:
 
   react-router@4.3.1:
     resolution: {integrity: sha512-yrvL8AogDh2X42Dt9iknk4wF4V8bWREPirFfS9gLU1huk6qK41sg7Z/1S81jjTrGHxa3B8R3J6xIkDAA6CVarg==}
+    peerDependencies:
+      react: '>=15'
+
+  react-router@5.2.0:
+    resolution: {integrity: sha512-smz1DUuFHRKdcJC0jobGo8cVbhO3x50tCL4icacOlcwDOEQPq4TMqwx3sY1TP+DvtTgz4nm3thuo7A+BK2U0Dw==}
     peerDependencies:
       react: '>=15'
 
@@ -5264,6 +5298,11 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-subscription@1.5.1:
+    resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
 
   use-sync-external-store@1.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
@@ -6782,12 +6821,23 @@ snapshots:
       '@types/react': 18.3.3
       '@types/react-router': 5.1.20
 
+  '@types/react-router-dom@5.1.7':
+    dependencies:
+      '@types/history': 5.0.0
+      '@types/react': 18.3.3
+      '@types/react-router': 5.1.20
+
   '@types/react-router-redux@5.0.27':
     dependencies:
       '@types/history': 4.7.11
       '@types/react': 18.3.3
       '@types/react-router': 5.1.20
       redux: 4.2.1
+
+  '@types/react-router@5.1.12':
+    dependencies:
+      '@types/history': 5.0.0
+      '@types/react': 18.3.3
 
   '@types/react-router@5.1.20':
     dependencies:
@@ -7274,6 +7324,16 @@ snapshots:
       react-router-dom: 6.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   '@umijs/route-utils@4.0.1': {}
+
+  '@umijs/runtime@3.5.42(react@18.3.1)':
+    dependencies:
+      '@types/react-router': 5.1.12
+      '@types/react-router-dom': 5.1.7
+      history-with-query: 4.10.4
+      react: 18.3.1
+      react-router: 5.2.0(react@18.3.1)
+      react-router-dom: 5.2.0(react@18.3.1)
+      use-subscription: 1.5.1(react@18.3.1)
 
   '@umijs/server@4.3.12':
     dependencies:
@@ -9126,6 +9186,16 @@ snapshots:
 
   he@1.2.0: {}
 
+  history-with-query@4.10.4:
+    dependencies:
+      '@babel/runtime': 7.25.0
+      loose-envify: 1.4.0
+      query-string: 6.14.1
+      resolve-pathname: 3.0.0
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+      value-equal: 1.0.1
+
   history@4.10.1:
     dependencies:
       '@babel/runtime': 7.25.0
@@ -9813,6 +9883,13 @@ snapshots:
       dom-walk: 0.1.2
 
   min-indent@1.0.1: {}
+
+  mini-create-react-context@0.4.1(prop-types@15.8.1)(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      tiny-warning: 1.0.3
 
   minimalistic-assert@1.0.1: {}
 
@@ -10979,6 +11056,17 @@ snapshots:
       react-router: 4.3.1(react@18.3.1)
       warning: 4.0.3
 
+  react-router-dom@5.2.0(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      history: 4.10.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-router: 5.2.0(react@18.3.1)
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+
   react-router-dom@6.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       history: 5.3.0
@@ -11003,6 +11091,20 @@ snapshots:
       prop-types: 15.8.1
       react: 18.3.1
       warning: 4.0.3
+
+  react-router@5.2.0(react@18.3.1):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      history: 4.10.1
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      mini-create-react-context: 0.4.1(prop-types@15.8.1)(react@18.3.1)
+      path-to-regexp: 1.7.0
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-is: 16.13.1
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
 
   react-router@6.3.0(react@18.3.1):
     dependencies:
@@ -11834,6 +11936,11 @@ snapshots:
       react: 18.3.1
     optionalDependencies:
       '@types/react': 18.3.3
+
+  use-subscription@1.5.1(react@18.3.1):
+    dependencies:
+      object-assign: 4.1.1
+      react: 18.3.1
 
   use-sync-external-store@1.2.0(react@18.3.1):
     dependencies:

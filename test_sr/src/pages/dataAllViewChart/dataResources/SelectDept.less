@@ -1,0 +1,148 @@
+.filter_hospital_department {
+    width: calc(100% - 80px);
+    height: 60px;
+    margin: 20px;
+    padding: 0 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    color: #444444;
+    font-weight: bold;
+    position: relative;
+
+    .separate_icon {
+        width: 1px;
+        height: 16px;
+        background: #e4e8f2;
+        margin: 0 24px;
+    }
+
+    .filter_tags_list {
+        height: 28px;
+        position: relative;
+        margin: 0 8px;
+        padding: 0 12px;
+        background: rgba(0, 106, 237, 0.1);
+        border-radius: 2px;
+        line-height: 28px;
+        text-align: center;
+        font-weight: 400;
+        color: #006aed;
+        cursor: pointer;
+
+        &:first-of-type {
+            margin-left: 16px;
+        }
+
+        .filter_tags_list_del {
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            color: #fff;
+            display: none;
+            background-color: #cccccc;
+            border-radius: 50%;
+            font-size: 8px;
+            line-height: 14px;
+            width: 14px;
+            height: 14px;
+        }
+
+        &:hover {
+            .filter_tags_list_del {
+                display: block;
+            }
+        }
+    }
+
+    .department_tags {
+        display: flex;
+    }
+
+    .more_filter {
+        color: #333333;
+        font-size: 14px;
+        user-select: none;
+        flex: 1;
+
+        .more_filter_set {
+            width: 100px;
+            cursor: pointer;
+            float: right;
+            text-align: right;
+        }
+    }
+
+    .more_filter_content {
+        position: absolute;
+        top: 68px;
+        left: 0;
+        z-index: 1;
+        width: calc(100% - 40px);
+        padding: 20px;
+        background: #ffffff;
+        box-shadow: 0px 6px 24px 0px rgba(88, 111, 190, 0.1);
+        border-radius: 6px;
+
+        .filter_hospital,
+        .filter_department {
+            display: flex;
+
+            .filter_hospital_label,
+            .filter_department_label {
+                line-height: 28px;
+            }
+
+            .filter_hospital_content,
+            .filter_department_content {
+                flex: 1;
+                display: flex;
+                flex-wrap: wrap;
+
+                .filter_tags_list {
+                    height: 28px;
+                    margin: 0 16px 16px;
+                    padding: 0 12px;
+                    border-radius: 2px;
+                    line-height: 28px;
+                    text-align: center;
+                    font-weight: 400;
+                    cursor: pointer;
+                    border-radius: 2px;
+                    border: 1px solid #eceff6;
+                    color: #444444;
+                    background: #fff;
+                }
+
+                .filter_tags_list_actived {
+                    background: rgba(0, 106, 237, 0.1);
+                    color: #006aed;
+                }
+            }
+        }
+
+        .more_filter_footer {
+            text-align: center;
+            position: relative;
+
+            .brush_all_list {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 4px;
+                cursor: pointer;
+
+                img {
+                    margin-top: 2px;
+                }
+            }
+        }
+    }
+}

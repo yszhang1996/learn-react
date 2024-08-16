@@ -2,7 +2,7 @@
  * api接口统一管理
  */
 import axios from './'
-import { listByPhoneData, ArticleType, IndexArticleData, TradeAnnoParams, NoticeListType, NewsDetailType, DictDetailType, ArticleListType, TradeAnnoListType, SumNewslistType, SumPolicylistType, CodeBase64Type, saveSuggestCommitParams, tradeAnnoTradeTypeParams, tradeAnnoTradeTypeList, tradeAnnoTradeTypeChildren, annoReceiveListType, AnnouncementT, getAnnoReceiveStatisticsType, todayT } from "../types"
+import { listByPhoneData, ArticleType, IndexArticleData, TradeAnnoParams, NoticeListType, NewsDetailType, DictDetailType, ArticleListType, TradeAnnoListType, SumNewslistType, SumPolicylistType, CodeBase64Type, saveSuggestCommitParams, tradeAnnoTradeTypeParams, tradeAnnoTradeTypeList, tradeAnnoTradeTypeChildren, annoReceiveListType, AnnouncementT, getAnnoReceiveStatisticsType, todayT, DeptItems, getCrowdTimeChartParams } from "../types"
 
 // 获取登录时的图片验证码
 export const getVerifyImg = () => axios.post<{ data: { yzm: string, auth: string } }>('/unified/sys/getVerifyImg', {})
@@ -13,7 +13,19 @@ export const entryHome = (params: {
     password: string,
     useryzm: string,
     auth: string,
-}) => axios.post<{ data: { token: string, phone: string, menuTree: [] } }>('/unified/sys/entryHome', params, true)
+}) => axios.post<{ data: { token: string, phone: string, menuTree: [], operateJson: object } }>('/unified/sys/entryHome', params, true)
+
+// 获取是否有当前路由权限
+export const viewVisitRecord = (params: { moduleName: string, modulePath: string }) => axios.post<{ content: DictDetailType[] }>('/unified/sys/viewVisitRecord', params)
+
+// 获取科室列表
+export const getDepartmentInfos = () => axios.post<{ data: DeptItems }>('/portal/resourceOverview/getDepartmentInfos', {})
+
+// 获取统计信息
+export const getCrowdTimeChart = (params: getCrowdTimeChartParams) => axios.post<{ data: any }>('/portal/dataanalysis/getCrowdTimeChart', params)
+
+// 获取门诊和住院统计百分比
+export const getCrowdDataIncrement = (params: any) => axios.post<{ data: any }>('/portal/dataanalysis/getCrowdDataIncrement', params)
 
 // 获取字典详情
 export const getDictDetail = (params: { dictName: string }) => axios.get<{ content: DictDetailType[] }>('/api/dictDetail', params)

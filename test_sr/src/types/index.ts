@@ -5,6 +5,20 @@ export type PropsMenu = {
     children?: PropsMenu[]; // 可能有子菜单
 };
 
+export type DeptItems = { deptCode: string, deptName: string }[] // 科室列表的结构
+
+export type getCrowdTimeChartParams = {
+    center: string; // 院区默认全部
+    deptStr: string; // 从其他地方获取的部门字符串
+    size: "all" | number; // top数量，默认全部
+    startTime?: Date | null; // 开始时间
+    endTime?: Date | null; // 结束时间
+    timeType?: "year" | "month"; // 年度或月度
+    timePeriod?: 0 | 1; // 是否自定义统计时间段
+    patientStatus?: 1 | 2; // 统计维度：病例或患者
+    treatmentType?: 1 | 2 | 3; // 统计维度：门诊、住院、混合/全部
+}
+
 export interface DictDetailType {
     createBy: string;
     createTime: string;

@@ -7,6 +7,7 @@ import JSEncrypt from "@/utils/JSEncrypt";
 import yayJpg from '../../assets/yay.jpg';
 import { getVerifyImg, entryHome } from '@/request/api'
 import { connect, history } from 'umi';
+import { PropsMenu } from '@/types';
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -55,8 +56,10 @@ const Page = (props) => {
       if (res.data.token) {
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('menuTree', JSON.stringify(res.data.menuTree))
+        localStorage.setItem('operateJson', JSON.stringify(res.data.operateJson))
         history.push('/')
         props.dispatch({ type: 'login/setMenu', payload: res.data.menuTree })
+        props.dispatch({ type: 'login/setOperateJson', payload: res.data.operateJson })
       }
     }).finally(() => {
       setLoginBtnLoading(false)
@@ -118,7 +121,7 @@ const Page = (props) => {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { login: { menu: PropsMenu[]; }; }) => {
   console.log(state);
 
   return {

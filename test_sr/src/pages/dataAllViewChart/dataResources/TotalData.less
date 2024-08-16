@@ -1,0 +1,104 @@
+.TotalData {
+    width: calc(100% - 80px);
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 0 20px 20px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+
+    .total_list {
+      flex: 1;
+      height: 150px;
+      padding: 20px;
+      background: linear-gradient(180deg, #f6f7ff 0%, #ececff 100%);
+      border-radius: 4px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      .total_list_top {
+        display: flex;
+        align-items: center;
+        .total_list_top_title {
+          flex: 1;
+          font-weight: bold;
+          font-size: 16px;
+          color: #1d252f;
+        }
+        .total_list_top_time {
+          flex: 1;
+          font-weight: 400;
+          font-size: 12px;
+          color: #4e5969;
+        }
+      }
+      .total_list_bottom {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        .total_list_bottom_num {
+          flex: 6;
+          .total_list_bottom_num_main {
+            font-weight: bold;
+            font-size: 26px;
+            color: #1d2129;
+            text-align: left;
+          }
+          .total_list_bottom_num_yesterday {
+            margin-top: 6px;
+            font-weight: 400;
+            font-size: 12px;
+            color: #4e5969;
+            text-align: left;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .total_list_bottom_num_yesterday_up {
+              color: #f53f3f;
+              margin-left: 8px;
+            }
+            img {
+              margin-left: 8px;
+            }
+          }
+        }
+        .total_list_bottom_charts {
+          flex: 7;
+          height: 100%;
+          .cases_and_parient {
+            margin-top: 20px;
+            padding-left: 24px;
+            height: calc(100% - 20px);
+            border-left: 1px solid rgba(0, 199, 134, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .cases_total,
+            .patient_total {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-size: 14px;
+              color: #1d2129;
+              .cases_and_parient_total_text {
+                flex: 1;
+                padding-left: 10px;
+              }
+              .cases_and_parient_total_num {
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+    .total_list_2 {
+      background: linear-gradient(180deg, #f2f9fe 0%, #e6f4fe 100%);
+    }
+    .total_list_3 {
+      background: linear-gradient(180deg, #f5fef2 0%, #e6feee 100%);
+    }
+    .total_list_4 {
+      background: linear-gradient(180deg, #f2f9fe 0%, #e6f4fe 100%);
+    }
+  }
