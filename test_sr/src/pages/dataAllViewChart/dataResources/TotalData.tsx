@@ -42,18 +42,6 @@ function TotalData({ deptStr }: { deptStr: string }) {
             params.patientStatus = 2;
             params.treatmentType = 3;
         }
-        //   if (type === 3) {
-        //     params.timePeriod = 0;
-        //     params.timeType = this.selectYearsOrMonths;
-        //     params.patientStatus = 1;
-        //     params.treatmentType = this.activeName === "first" ? 1 : 2;
-        //     if (this.dataRange && this.dataRange[0] && this.dataRange[1]) {
-        //       params.startTime = this.dataRange[0];
-        //       params.endTime = this.dataRange[1];
-        //       params.timePeriod = 1;
-        //     }
-        //     // this.outpatientAndInpatientLoading++;
-        //   }
         setCrowdTimeChartLoading(true)
         getCrowdTimeChart(params).then(res => {
             if (res.data) {
@@ -65,18 +53,6 @@ function TotalData({ deptStr }: { deptStr: string }) {
                     let data = Object.values(res.data.result);
                     setPatientTotalData(data)
                 }
-                // if (type === 3) {
-                //   this.peopleTotalXAxisData = [];
-                //   this.peopleTotalData = [];
-                //   for (const key in res.data.result) {
-                //     if (Object.hasOwnProperty.call(res.data.result, key)) {
-                //       const element = res.data.result[key];
-                //       this.peopleTotalXAxisData.push(key);
-                //       this.peopleTotalData.push(element);
-                //     }
-                //   }
-                //   this.otherField = res.data.otherField;
-                // }
                 setOtherField(res.data.otherField)
             }
         }).finally(() => {
@@ -91,12 +67,6 @@ function TotalData({ deptStr }: { deptStr: string }) {
             treatmentType: 3,
             patientStatus: 1,
         }).then((res) => {
-            if (res.data.menzhen) {
-                //   this.outPatientPercent = res.data.menzhen;
-            }
-            if (res.data.zhuyuan) {
-                //   this.inPatientPercent = res.data.zhuyuan;
-            }
             if (res.data.all) {
                 setAllPercent(res.data.all)
             }
@@ -204,7 +174,7 @@ function TotalData({ deptStr }: { deptStr: string }) {
                     <div className="total_list_bottom">
                         <div className="total_list_bottom_num">
                             <div className="total_list_bottom_num_main">
-                                {Number(outAndInpatientData?.outCaseCount) + Number(outAndInpatientData?.outpatientCount)}
+                                {Number(outAndInpatientData?.outCaseCount || 0) + Number(outAndInpatientData?.outpatientCount || 0)}
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span
@@ -254,7 +224,7 @@ function TotalData({ deptStr }: { deptStr: string }) {
                     <div className="total_list_bottom">
                         <div className="total_list_bottom_num">
                             <div className="total_list_bottom_num_main">
-                                {Number(outAndInpatientData?.inCaseCount) + Number(outAndInpatientData?.inHospitalCount)}
+                                {Number(outAndInpatientData?.inCaseCount || 0) + Number(outAndInpatientData?.inHospitalCount || 0)}
                             </div>
                             <div className="total_list_bottom_num_yesterday">
                                 <span>较上月</span

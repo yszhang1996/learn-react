@@ -5,6 +5,7 @@ export default defineConfig({
     { path: "/", component: "index", },
     { path: "/docs", component: "docs" },
     { path: "/login", component: "login", layout: false },
+    { path: "/test", component: "test", layout: false },
     {
       path: "/dataAllViewChart", component: "dataAllViewChart", title: '资源全景图', layout: false, wrappers: ['@/wrappers/auth'],
       routes: [

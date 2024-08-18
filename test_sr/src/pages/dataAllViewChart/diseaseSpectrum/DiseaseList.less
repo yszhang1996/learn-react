@@ -1,0 +1,36 @@
+.DiseaseList {
+    width: 106px;
+    height: 84px;
+    background: #f8fbff;
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 12px;
+
+    &:hover {
+        background: linear-gradient(180deg,
+                rgba(22, 93, 255, 0.3) 0%,
+                rgba(0, 106, 237, 0) 100%);
+    }
+
+    .tabs-top {
+        margin-bottom: 7px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(128, 70, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.actived {
+    background: linear-gradient(180deg,
+            rgba(22, 93, 255, 0.3) 0%,
+            rgba(0, 106, 237, 0) 100%);
+}

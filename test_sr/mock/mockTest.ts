@@ -3046,6 +3046,200 @@ export default {
             "hitMinTime": "2014-09-16",
             "inHospitalCount": "2811"
         }
+    },
+    'POST /portal/dataanalysis/getCrowdProvinceChart': {
+        "code": 200,
+        "message": "执行成功",
+        "data": {
+            "result": {
+                "山东省": 123,
+                "上海市": 234,
+                "广东省": 345,
+                "辽宁省": 456,
+                "北京市": 567,
+                "河北省": 678
+            },
+            "otherField": {
+                "hitCount": 17284,
+                "docCountAll": 7013,
+                "count": 17284,
+                "patientCount": 3608
+            }
+        }
+    },
+    'POST /portal/diseasetype/selectDiseaseSpecTrumTypeList': {
+        "code": 200,
+        "message": "执行成功",
+        "data": {
+            "total": 15,
+            "typeVoList": [
+                {
+                    "diseaseId": "270148920924102656",
+                    "diseaseTypeName": "测试1115",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 22044,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-08-16 11:15:22",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264806682435526656",
+                    "diseaseTypeName": "测试归类0802",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-08-05 11:04:54",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264794309045788672",
+                    "diseaseTypeName": "测试归类0801",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "21",
+                    "updateTime": "2024-08-01 16:38:03",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264691044431437824",
+                    "diseaseTypeName": "测试自定义3",
+                    "classType": 2,
+                    "diseaseDiagnosisCount": 12896,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "5",
+                    "updateTime": "2024-08-01 15:26:46",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400196373864448",
+                    "diseaseTypeName": "测试10",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 135226,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "13",
+                    "updateTime": "2024-08-01 15:17:08",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264690337255006208",
+                    "diseaseTypeName": "测试自定义2",
+                    "classType": 2,
+                    "diseaseDiagnosisCount": 29892,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "20",
+                    "updateTime": "2024-08-01 09:45:20",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400001149984768",
+                    "diseaseTypeName": "测试4",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-07-31 14:39:41",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400092707446784",
+                    "diseaseTypeName": "测试7",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 1,
+                    "sortCount": -1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-07-31 14:39:39",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400129764122624",
+                    "diseaseTypeName": "测试8",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 1,
+                    "sortCount": 1,
+                    "iconUrl": "9",
+                    "updateTime": "2024-07-31 14:37:57",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400163779928064",
+                    "diseaseTypeName": "测试9",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "14",
+                    "updateTime": "2024-07-31 14:31:51",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400066396577792",
+                    "diseaseTypeName": "测试6",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-07-31 14:31:28",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264400028110970880",
+                    "diseaseTypeName": "测试5",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "1",
+                    "updateTime": "2024-07-31 14:31:19",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264399971185876992",
+                    "diseaseTypeName": "测试3",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "3",
+                    "updateTime": "2024-07-31 14:31:05",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264399786602946560",
+                    "diseaseTypeName": "测试2",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 0,
+                    "sortCount": 1,
+                    "iconUrl": "2",
+                    "updateTime": "2024-07-31 14:30:21",
+                    "linkListVoList": null
+                },
+                {
+                    "diseaseId": "264072418027905024",
+                    "diseaseTypeName": "测试归类",
+                    "classType": 1,
+                    "diseaseDiagnosisCount": 8807,
+                    "useStatus": 1,
+                    "sortCount": 4,
+                    "iconUrl": "1",
+                    "updateTime": "2024-07-31 14:29:59",
+                    "linkListVoList": null
+                }
+            ]
+        }
     }
 
 }
