@@ -13,9 +13,11 @@
     "@ant-design/pro-components": "^2.7.15",
     "antd": "^5.20.1",
     "axios": "^1.7.4",
+    "echarts": "^5.4.3",
+    "mobx": "^6.13.1",
+    "mobx-react-lite": "^4.0.7",
     "qs": "6.7.0",
-    "umi": "^4.3.12",
-    "echarts": "^5.4.3"
+    "umi": "^4.3.12"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

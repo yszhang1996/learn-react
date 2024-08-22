@@ -25,7 +25,7 @@ const dataAllViewChart = (props: { operateJson: { dataResource: boolean, disease
             }else{
                 console.log("触发");
                 
-                setActiveName(tabsList[0].value)
+                setActiveName(tabsList[1].value)
             }
         }
     }, [])

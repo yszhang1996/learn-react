@@ -180,7 +180,7 @@ export default {
                     "parentId": 0,
                     "powerName": "我的工作站",
                     "powerType": "menu",
-                    "pageUrl": "workstation",
+                    "pageUrl": "mobx1",
                     "sysType": "keyan",
                     "outLink": 0,
                     "navFlag": 0,
@@ -196,7 +196,7 @@ export default {
                     "parentId": 0,
                     "powerName": "监控大屏",
                     "powerType": "menu",
-                    "pageUrl": "bigScreen",
+                    "pageUrl": "mobx2",
                     "sysType": "keyan",
                     "outLink": 0,
                     "navFlag": 0,
@@ -3239,6 +3239,86 @@ export default {
                     "linkListVoList": null
                 }
             ]
+        }
+    },
+    'POST /portal/dataanalysis/getDiseaseTop': {
+        "code": 200,
+        "message": "执行成功",
+        "data": {
+            "result": [
+                {
+                    "entityName": "高血压1级",
+                    "count": 2114,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "2型糖尿病伴血糖控制不佳",
+                    "count": 1677,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "胸椎管狭窄",
+                    "count": 1660,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "支气管哮喘",
+                    "count": 1657,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "闭塞性动脉硬化",
+                    "count": 1653,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "慢性鼻窦炎",
+                    "count": 1634,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "梗阻性黄疸",
+                    "count": 1552,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "急性下后壁心肌梗死",
+                    "count": 1521,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "肺栓塞",
+                    "count": 1357,
+                    "perCent": 0
+                },
+                {
+                    "entityName": "输尿管结石",
+                    "count": 401,
+                    "perCent": -24
+                }
+            ],
+            "otherField": {
+                "hitCount": 5327,
+                "docCountAll": 49556,
+                "count": 5327,
+                "patientCount": 2159
+            }
+        }
+    },
+    'POST /portal/dataanalysis/getPatientCount': {
+        "code": 200,
+        "message": "执行成功",
+        "data": {
+            "all": {
+                "idIncrement": "0.00%",
+                "idCount": "5490",
+                "pidIncrement": "0.00%",
+                "pidCount": "2178"
+            },
+            "timeMap": {
+                "maxTime": "2017-07-30",
+                "minTime": "2015-12-03"
+            }
         }
     }
 

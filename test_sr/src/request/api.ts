@@ -36,6 +36,12 @@ export const getCrowdProvinceChart = (params: any) => axios.post<{ data: any }>(
 // 获取当前疾病列表
 export const selectDiseaseSpecTrumTypeList = (params: any) => axios.post<{ data: any }>('/portal/diseasetype/selectDiseaseSpecTrumTypeList', params)
 
+// 获取当前疾病排名TOP10
+export const getDiseaseTop = (params: any) => axios.post<{ data: any }>('/portal/dataanalysis/getDiseaseTop', params)
+
+// 获取数据统计
+export const getPatientCount = (params: any) => axios.post<{ data: any }>('/portal/dataanalysis/getPatientCount', params)
+
 // 获取首页顶部（通知公告、工作动态、政策法规）文章列表
 export const getIndexArticle = () => axios.post<IndexArticleData>('/api/frontData/getIndexArticle')
 // 获取首页顶部轮播图信息

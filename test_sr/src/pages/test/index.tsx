@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import Children from './children';
 
 function CountdownTimer() {
   // 定义计时状态
@@ -6,6 +7,8 @@ function CountdownTimer() {
 
   // 使用useEffect来启动定时器
   useEffect(() => {
+    console.log("触发useEffect");
+    
     let intervalId = null;
     if (seconds > 0) {
       intervalId = setInterval(() => {
@@ -17,11 +20,19 @@ function CountdownTimer() {
 
     // 清除定时器，防止内存泄漏
     return () => {
+      console.log("触发useEffect卸载");
         if(intervalId){
             clearInterval(intervalId)
         }
     };
   }, [seconds]);
+  useEffect(()=>{
+    console.log("触发useEffectfather");
+  },[])
+  useLayoutEffect(()=>{
+    console.log("触发useLayoutEffect");
+    
+  },[])
 
   // 渲染倒计时
   return (
@@ -31,6 +42,7 @@ function CountdownTimer() {
       ) : (
         <h1>比赛开始</h1>
       )}
+      <Children />
     </div>
   );
 }
